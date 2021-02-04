@@ -21,14 +21,17 @@ func NewView() {
 	}
 
 	screen.Clear()
-	for x := 0; x < world.x; x++ {
+	var cell []rune = []rune{' '}
+	for x, xOffset := 0,0; x < world.x; x++ {
 		for y := 0; y < world.y; y++ {
 			styleBoarder := tcell.StyleDefault.Foreground(tcell.ColorBlack).Background(tcell.ColorBlack)
 			if world.w[x][y] {
 				styleBoarder = tcell.StyleDefault.Foreground(tcell.ColorBlack).Background(tcell.ColorWhite)
 			}
-			screen.SetContent(x, y, ' ', nil, styleBoarder)
+			screen.SetContent(x + xOffset, y, ' ' , cell, styleBoarder)
+			//screen.SetContent(x + xOffset + 1, y, ' ', nil, styleBoarder)
 		}
+		//xOffset = xOffset + 2
 	}
 	screen.Show()
 	view = &View{}
@@ -37,13 +40,14 @@ func NewView() {
 // Update Update the view
 func (view *View) Update() {
 	screen.Clear()
+	var cell []rune = []rune{' '}
 	for x := 0; x < world.x; x++ {
 		for y := 0; y < world.y; y++ {
 			styleBoarder := tcell.StyleDefault.Foreground(tcell.ColorBlack).Background(tcell.ColorBlack)
 			if world.w[x][y] {
 				styleBoarder = tcell.StyleDefault.Foreground(tcell.ColorBlack).Background(tcell.ColorWhite)
 			}
-			screen.SetContent(x, y, ' ', nil, styleBoarder)
+			screen.SetContent(x, y, ' ', cell, styleBoarder)
 		}
 	}
 	screen.Show()
