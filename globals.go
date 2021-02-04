@@ -12,23 +12,21 @@ const (
 )
 
 type (
-	Board struct {
-		boardsIndex  int
-		width        int
-		height       int
-		colors       [][]tcell.Color
-		rotation     [][]int
-		dropDistance int
-		fullLinesY   []bool
-	}
-
 	// View is the display engine
 	View struct {
 	}
+
+	World struct {
+		generaition int
+		x, y int //width, height
+		w [][] bool
+	}
+
 )
 
 var (
 	logger *log.Logger
 	screen tcell.Screen
 	view   *View
+	world *World
 )

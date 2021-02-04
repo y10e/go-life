@@ -2,8 +2,6 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
-	"time"
 
 	"github.com/gdamore/tcell"
 )
@@ -23,27 +21,39 @@ func NewView() {
 	}
 
 	screen.Clear()
-	rand.Seed(time.Now().UnixNano())
-
-	for x := 0; x < 50; x++ {
-		for y := 0; y < 50; y++ {
-			styleBoarder := tcell.StyleDefault.Foreground(tcell.ColorBlack).Background(tcell.ColorWhite)
-			if rand.Float32() > 0.2 {
-				styleBoarder = tcell.StyleDefault.Foreground(tcell.ColorBlack).Background(tcell.ColorBlack)
+	for x := 0; x < world.x; x++ {
+		for y := 0; y < world.y; y++ {
+			styleBoarder := tcell.StyleDefault.Foreground(tcell.ColorBlack).Background(tcell.ColorBlack)
+			if world.w[x][y] {
+				styleBoarder = tcell.StyleDefault.Foreground(tcell.ColorBlack).Background(tcell.ColorWhite)
 			}
 			screen.SetContent(x, y, ' ', nil, styleBoarder)
 		}
 	}
 	screen.Show()
-
 	view = &View{}
+}
+
+// Update Update the view
+func (view *View) Update() {
+	screen.Clear()
+	for x := 0; x < world.x; x++ {
+		for y := 0; y < world.y; y++ {
+			styleBoarder := tcell.StyleDefault.Foreground(tcell.ColorBlack).Background(tcell.ColorBlack)
+			if world.w[x][y] {
+				styleBoarder = tcell.StyleDefault.Foreground(tcell.ColorBlack).Background(tcell.ColorWhite)
+			}
+			screen.SetContent(x, y, ' ', nil, styleBoarder)
+		}
+	}
+	screen.Show()
 }
 
 // Stop stops the view
 func (view *View) Stop() {
-	fmt.Println("View Stop start")
+	//fmt.Println("View Stop start")
 	screen.Fini()
-	fmt.Println("View Stop end")
+	//fmt.Println("View Stop end")
 }
 
 func (view *View) drawTexts() {
