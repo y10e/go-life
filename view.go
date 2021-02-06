@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/gdamore/tcell"
+	"github.com/mattn/go-runewidth"
 )
 
 // NewView creates a new view
@@ -21,14 +22,15 @@ func NewView() {
 	}
 
 	screen.Clear()
-	var cell []rune = []rune{' '}
-	for x, xOffset := 0,0; x < world.x; x++ {
+	//var cell []rune = []rune{'a'}
+	xd := runewidth.RuneWidth('　')
+	for x := 0; x < world.x; x++ {
 		for y := 0; y < world.y; y++ {
 			styleBoarder := tcell.StyleDefault.Foreground(tcell.ColorBlack).Background(tcell.ColorBlack)
 			if world.w[x][y] {
-				styleBoarder = tcell.StyleDefault.Foreground(tcell.ColorBlack).Background(tcell.ColorWhite)
+				styleBoarder = tcell.StyleDefault.Foreground(tcell.ColorBlack).Background(tcell.ColorSpringGreen)
 			}
-			screen.SetContent(x + xOffset, y, ' ' , cell, styleBoarder)
+			screen.SetContent(x*xd, y, '　' , nil , styleBoarder)
 			//screen.SetContent(x + xOffset + 1, y, ' ', nil, styleBoarder)
 		}
 		//xOffset = xOffset + 2
@@ -40,14 +42,15 @@ func NewView() {
 // Update Update the view
 func (view *View) Update() {
 	screen.Clear()
-	var cell []rune = []rune{' '}
-	for x := 0; x < world.x; x++ {
+	//var cell []rune = []rune{'a'}
+	xd := runewidth.RuneWidth('　')
+	for x := 0; x < world.x; x ++{
 		for y := 0; y < world.y; y++ {
 			styleBoarder := tcell.StyleDefault.Foreground(tcell.ColorBlack).Background(tcell.ColorBlack)
 			if world.w[x][y] {
-				styleBoarder = tcell.StyleDefault.Foreground(tcell.ColorBlack).Background(tcell.ColorWhite)
+				styleBoarder = tcell.StyleDefault.Foreground(tcell.ColorBlack).Background(tcell.ColorSpringGreen)
 			}
-			screen.SetContent(x, y, ' ', cell, styleBoarder)
+			screen.SetContent(x*xd, y, '　', nil, styleBoarder)
 		}
 	}
 	screen.Show()

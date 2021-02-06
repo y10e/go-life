@@ -6,12 +6,12 @@ import (
 
 func main() {
 
-	const maxGen int = 3
+	const maxGen int = 1000
 	const x, y = 50, 50
 	
 	NewWorld(x, y)
 	for i := 0; i < maxGen; i++ {
-		time.Sleep(time.Second * 4)
+		time.Sleep(time.Millisecond * 100)
 		world.Update()
 	}
 	world.Stop()
