@@ -1,15 +1,13 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/gdamore/tcell"
 	"github.com/mattn/go-runewidth"
 )
 
 // NewView creates a new view
 func NewView() {
-	fmt.Print("Call NewView")
+	//fmt.Print("Call NewView")
 	var err error
 
 	screen, err = tcell.NewScreen()
