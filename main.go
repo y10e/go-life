@@ -3,8 +3,6 @@ package main
 import (
 	"fmt"
 	"time"
-
-	"github.com/gdamore/tcell"
 )
 
 func main() {
@@ -15,19 +13,9 @@ func main() {
 	NewWorld(x, y)
 	defer world.Stop()
 
+	// key event loop start
 	quit := make(chan struct{})
-
-	go func(){
-		for {
-			ev := screen.PollEvent()
-			switch ev := ev.(type) {
-				case *tcell.EventKey:
-					if ev.Key() == tcell.KeyEnter {
-						close(quit)
-					}
-			}
-		}
-	}()
+	go inputLoop(quit)
 
 	fin := false
 
@@ -36,24 +24,17 @@ func main() {
 		world.Update()
 
 		select {
+			// clicking Enter Key 
 			case <-quit:
 				fmt.Println("done")
-				//time.Sleep(time.Millisecond * 5000)
 				fin = true
 			default:
-				//fmt.Println("default")
-				//continue
+				continue
 		}
 
 		if fin {
 			break
-			//world.Stop()
 		}
-
-		
-		
 	}
-	//<-quit
-	//world.Stop()
 
 }
