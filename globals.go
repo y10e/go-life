@@ -11,6 +11,12 @@ const (
 	boardYOffset = 2
 )
 
+const (
+	stop = iota
+	running
+	pause
+)
+
 type (
 	// View is the display engine
 	View struct {
@@ -20,9 +26,15 @@ type (
 		generaition int
 		x, y int //width, height
 		w [][] bool
+		status int
 	}
 
 )
+
+// Keyboard Input Event
+type Event struct {
+	Type string
+}
 
 var (
 	logger *log.Logger

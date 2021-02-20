@@ -1,6 +1,8 @@
 package main
 
 import (
+	"strconv"
+
 	"github.com/gdamore/tcell"
 	"github.com/mattn/go-runewidth"
 )
@@ -33,6 +35,9 @@ func NewView() {
 		}
 		//xOffset = xOffset + 2
 	}
+	
+	drawText(0, world.y,strconv.Itoa(world.generaition),tcell.ColorWhite,tcell.ColorBlack)
+	drawText(0, world.y+1,strconv.Itoa(world.status),tcell.ColorWhite,tcell.ColorBlack)
 	screen.Show()
 	view = &View{}
 }
@@ -51,6 +56,8 @@ func (view *View) Update() {
 			screen.SetContent(x*xd, y, '　', nil, styleBoarder)
 		}
 	}
+	drawText(0, world.y,strconv.Itoa(world.generaition),tcell.ColorWhite,tcell.ColorBlack)
+	drawText(0, world.y+1,strconv.Itoa(world.status),tcell.ColorWhite,tcell.ColorBlack)
 	screen.Show()
 }
 
@@ -70,7 +77,7 @@ func (view *View) drawTexts() {
 	*/
 }
 
-func (view *View) drawText(x int, y int, text string, fg tcell.Color, bg tcell.Color) {
+func drawText(x int, y int, text string, fg tcell.Color, bg tcell.Color) {
 	style := tcell.StyleDefault.Foreground(fg).Background(bg)
 	for index, char := range text {
 		screen.SetContent(x+index, y, rune(char), nil, style)

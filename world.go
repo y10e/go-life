@@ -27,7 +27,7 @@ func NewWorld(x,y int) {
 			}
 		}
 	} 
-	world = &World{0,x,y,w}
+	world = &World{0,x,y,w,running}
 	NewView()
 
 }
@@ -35,6 +35,16 @@ func NewWorld(x,y int) {
 //Stop : Stop the world
 func (world *World) Stop() {
 	view.Stop()
+}
+
+//Pause : Pause the world
+func (world *World) Pause() {
+	world.status = pause
+}
+
+//Restart : Restart the world
+func (world *World) Restart() {
+	world.status = running
 }
 
 //Update : update the world
@@ -48,6 +58,7 @@ func (world *World) Update() {
 		}
 	} 
 	world.w = nw
+	world.generaition++
 	view.Update()
 }
 
