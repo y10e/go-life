@@ -36,8 +36,8 @@ func NewView() {
 		//xOffset = xOffset + 2
 	}
 	
-	drawText(0, world.y,strconv.Itoa(world.generaition),tcell.ColorWhite,tcell.ColorBlack)
-	drawText(0, world.y+1,strconv.Itoa(world.status),tcell.ColorWhite,tcell.ColorBlack)
+	drawText(0, world.y,"Gen:" + strconv.Itoa(world.generaition),tcell.ColorWhite,tcell.ColorBlack)
+	drawText(0, world.y+1,"Status:start",tcell.ColorWhite,tcell.ColorBlack)
 	screen.Show()
 	view = &View{}
 }
@@ -56,8 +56,8 @@ func (view *View) Update() {
 			screen.SetContent(x*xd, y, '　', nil, styleBoarder)
 		}
 	}
-	drawText(0, world.y,strconv.Itoa(world.generaition),tcell.ColorWhite,tcell.ColorBlack)
-	drawText(0, world.y+1,strconv.Itoa(world.status),tcell.ColorWhite,tcell.ColorBlack)
+	drawText(0, world.y,"Gen:" + strconv.Itoa(world.generaition),tcell.ColorWhite,tcell.ColorBlack)
+	drawText(0, world.y+1,"Status:"+world.status.String(),tcell.ColorWhite,tcell.ColorBlack)
 	screen.Show()
 }
 

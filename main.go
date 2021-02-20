@@ -17,46 +17,55 @@ func main() {
 	go inputLoop(event)
 	defer close(event)
 
-	fin := false
+	isFin := false
+	isPause := false
 	for i := 0; i < maxGen; i++ {
+
+		//Interval & world update
 		time.Sleep(time.Millisecond * 100)
 		world.Update()
 
+		//pause mode
+		if isPause {
+			pauseLoop(event)	
+			world.Restart()
+			isPause = false
+		}
+
+		// Complete this game
+		if isFin {
+			break
+		}
+
 		select {
-			// clicking Enter Key 
 			case keyin := <-event:
-				//fmt.Println(keyin)
 
 				if keyin.Type == "fin" {
-					fin = true
+					// clicking Ctrl + C
+					isFin = true
 				}else if keyin.Type == "pause" {
-					
-					//fin = true
-					pauseLoop(event)
+					// clicking Enter Key
+					world.Pause()
+					isPause = true
 					keyin.Type = "restart"
 				}
 			default:
 				continue
 		}
-
-		// Complete this game
-		if fin {
-			break
-		}
 	}
 
 }
 
+// Lopping unitl clicking EnterKey for Pause Mode
 func pauseLoop(event chan Event){
-	world.Pause()
+	
 	restart := false
 	for {		
 		select {
-			// clicking Enter Key 
 			case keyin := <-event:
 				if keyin.Type == "pause" {
+					// clicking Enter Key, cancel pause mode
 					restart = true
-					world.Restart()
 				}
 			default:
 				continue
@@ -65,6 +74,7 @@ func pauseLoop(event chan Event){
 		if restart {
 			break
 		}
-		time.Sleep(time.Millisecond * 250)
+
+		time.Sleep(time.Millisecond * 100)
 	}
 }

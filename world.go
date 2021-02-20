@@ -34,6 +34,7 @@ func NewWorld(x,y int) {
 
 //Stop : Stop the world
 func (world *World) Stop() {
+	world.status = stop
 	view.Stop()
 }
 
