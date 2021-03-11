@@ -22,14 +22,14 @@ const (
 
 func (s Status) String() string {
     switch s {
-    case stop:
-        return "stop"
-    case running:
-        return "running"
-    case pause:
-        return "pause"
-    default:
-        return "Unknown"
+		case stop:
+			return "stop"
+		case running:
+			return "running"
+		case pause:
+			return "pause"
+		default:
+			return "Unknown"
     }
 }
 
