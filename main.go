@@ -1,13 +1,23 @@
 package main
 
 import (
+	"fmt"
 	"time"
+
+	"github.com/spf13/viper"
 )
 
 func main() {
 
-	const maxGen int = 100
-	const x, y = 30, 30
+	// Load setting from config.toml 
+	conf, err := load()
+	if err != nil {
+		panic(err)
+	}
+
+	var maxGen = conf.Gen.Maxgen
+	var x = conf.Gen.Worldsize
+	var y = x
 	
 	NewWorld(x, y)
 	defer world.Stop()
@@ -77,4 +87,25 @@ func pauseLoop(event chan Event){
 
 		time.Sleep(time.Millisecond * 100)
 	}
+}
+
+func load() (*Config, error){
+
+	viper.SetConfigName("config")
+	viper.SetConfigType("toml")
+	viper.AddConfigPath(".")
+	var c Config
+	err := viper.ReadInConfig()
+
+	if err != nil {
+		return nil, fmt.Errorf("can't read the config file : %s", err)
+	}
+
+	err = viper.Unmarshal(&c)
+	if err != nil {
+		fmt.Println("NG")
+		return nil, fmt.Errorf("unable to decode into struct : %s", err)
+	}
+
+	return &c, nil
 }

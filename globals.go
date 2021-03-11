@@ -51,9 +51,15 @@ type (
 		Type string
 	}
 
+	Config struct {
+		Gen General `mapstructure:"general"`
+	}
+
+	General struct {
+		Maxgen int `mapstructure:"maxgen"`
+		Worldsize int `mapstructure:"worldsize"`
+	}
 )
-
-
 
 var (
 	logger *log.Logger
