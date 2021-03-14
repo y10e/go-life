@@ -9,17 +9,18 @@ func inputLoop(event chan Event) {
 		ev := screen.PollEvent()
 		switch ev := ev.(type) {
 			case *tcell.EventKey:
-
 				if ev.Key() == tcell.KeyEnter {
 					//close(event)
-					event <- Event{Type:"pause"}
+					//TODO:Game Start
+					event <- Event{Type:"start"}
 					
 				}else if ev.Key() == tcell.KeyCtrlC {
+					//Stop Game
 					event <- Event{Type:"fin"}
 				}else if ev.Rune() == ' ' {
+					//Pause, Restart
 					event <- Event{Type:"pause"}
 				}
-
 
 			default :
 				continue

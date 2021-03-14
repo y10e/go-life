@@ -7,6 +7,44 @@ import (
 	"github.com/mattn/go-runewidth"
 )
 
+// CreateStartMenu creates a new game screen
+func CreateStartMenu() {
+	var err error
+	screen, err = tcell.NewScreen()
+	if err != nil {
+		logger.Fatal("NewScreen error:", err)
+	}
+	err = screen.Init()
+	if err != nil {
+		logger.Fatal("screen Init error:", err)
+	}
+
+	screen.Clear()
+
+	xd := runewidth.RuneWidth('　')
+	for x := 0; x < 30; x++ {
+		for y := 0; y < 30; y++ {
+			styleBoarder := tcell.StyleDefault.Foreground(tcell.ColorBlack).Background(tcell.ColorBlack)
+			screen.SetContent(x*xd, y, '　' , nil , styleBoarder)
+		}
+	}
+
+	//drawText(3*xd, 11 ,"Game Start",tcell.ColorWhite,tcell.ColorBlack)
+	drawText(9*xd, 10 ,"Conway's Life Game",tcell.ColorWhite,tcell.ColorBlack)
+	drawText(9*xd, 15 ,"  Press EnterKey  ",tcell.ColorWhite,tcell.ColorBlack)
+	drawText(20*xd, 27 ,"       version 0.1",tcell.ColorWhite,tcell.ColorBlack)
+	drawText(20*xd, 28 ,"Copyright (C) y10e",tcell.ColorWhite,tcell.ColorBlack)
+
+	screen.Show()
+	view = &View{}
+}
+
+// StopStartMenu stops Start Menu
+func (view *View) StopStartMenu(){
+	screen.Fini()
+}
+
+
 // NewView creates a new view
 func NewView() {
 	//fmt.Print("Call NewView")
@@ -79,7 +117,9 @@ func (view *View) drawTexts() {
 
 func drawText(x int, y int, text string, fg tcell.Color, bg tcell.Color) {
 	style := tcell.StyleDefault.Foreground(fg).Background(bg)
-	for index, char := range text {
-		screen.SetContent(x+index, y, rune(char), nil, style)
+	var xd int = 0 
+	for _ , char := range text {
+		screen.SetContent(x+xd, y, rune(char), nil, style)
+		xd += runewidth.RuneWidth(char)
 	}
 }

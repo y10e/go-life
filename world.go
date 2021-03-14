@@ -119,4 +119,3 @@ func judge(i int, j int) bool{
 	//fmt.Printf("result:%t\n",result)
 	return result
 }
-

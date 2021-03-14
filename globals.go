@@ -38,6 +38,10 @@ type (
 	View struct {
 	}
 
+	Board struct {
+		x,y int
+	}
+
 	//World : Lige Game World
 	World struct {
 		generaition int
@@ -51,10 +55,12 @@ type (
 		Type string
 	}
 
+	//Config : Config.toml
 	Config struct {
 		Gen General `mapstructure:"general"`
 	}
 
+	//General : General setting on Config.toml
 	General struct {
 		Maxgen int `mapstructure:"maxgen"`
 		Worldsize int `mapstructure:"worldsize"`
@@ -66,4 +72,5 @@ var (
 	screen tcell.Screen
 	view   *View
 	world *World
+	board *Board
 )

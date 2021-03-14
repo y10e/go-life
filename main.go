@@ -18,14 +18,28 @@ func main() {
 	var maxGen = conf.Gen.Maxgen
 	var x = conf.Gen.Worldsize
 	var y = x
+
+	// Create Start Menu
+	NewBoard()
 	
+	// key event loop start
+	event := make(chan Event)
+	defer close(event)
+	go inputLoop(event)
+
+	// Loop until clicking Enter
+	startLoop(event)
+	board.StopBoard()
+	//close(event)
+
+	// Create World
 	NewWorld(x, y)
 	defer world.Stop()
 
 	// key event loop start
-	event := make(chan Event)
+	//event := make(chan Event)
 	go inputLoop(event)
-	defer close(event)
+	//defer close(event)
 
 	isFin := false
 	isPause := false
@@ -54,7 +68,7 @@ func main() {
 					// clicking Ctrl + C
 					isFin = true
 				}else if keyin.Type == "pause" {
-					// clicking Enter Key
+					// clicking Space
 					world.Pause()
 					isPause = true
 					keyin.Type = "restart"
@@ -64,6 +78,28 @@ func main() {
 		}
 	}
 
+}
+
+// Lopping unitl clicking EnterKey for Game Start
+func startLoop(event chan Event){
+	
+	start := false
+	for {		
+		select {
+			case keyin := <-event:
+				if keyin.Type == "start" {
+					// clicking Enter Key, start Game
+					start = true
+				}
+			default:
+				continue
+		}
+
+		if start {
+			break
+		}
+		time.Sleep(time.Millisecond * 100)
+	}
 }
 
 // Lopping unitl clicking EnterKey for Pause Mode
