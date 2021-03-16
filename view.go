@@ -21,19 +21,49 @@ func CreateStartMenu() {
 
 	screen.Clear()
 
-	xd := runewidth.RuneWidth('　')
+	/*
+	xd := runewidth.RuneWidth(' ')
 	for x := 0; x < 30; x++ {
 		for y := 0; y < 30; y++ {
 			styleBoarder := tcell.StyleDefault.Foreground(tcell.ColorBlack).Background(tcell.ColorBlack)
-			screen.SetContent(x*xd, y, '　' , nil , styleBoarder)
+			screen.SetContent(x*xd, y, ' ', nil, styleBoarder)
 		}
-	}
+	}*/
 
 	//drawText(3*xd, 11 ,"Game Start",tcell.ColorWhite,tcell.ColorBlack)
-	drawText(9*xd, 10 ,"Conway's Life Game",tcell.ColorWhite,tcell.ColorBlack)
-	drawText(9*xd, 15 ,"  Press EnterKey  ",tcell.ColorWhite,tcell.ColorBlack)
-	drawText(20*xd, 27 ,"       version 0.1",tcell.ColorWhite,tcell.ColorBlack)
-	drawText(20*xd, 28 ,"Copyright (C) y10e",tcell.ColorWhite,tcell.ColorBlack)
+	drawText(0, 0,  "                                                                                  ",tcell.ColorWhite,tcell.ColorBlack)
+	drawText(0, 1,  "                                                                                  ",tcell.ColorWhite,tcell.ColorBlack)
+	drawText(0, 2,  "                                                                                  ",tcell.ColorWhite,tcell.ColorBlack)
+	drawText(0, 3,  "                                                                                  ",tcell.ColorWhite,tcell.ColorBlack)
+	drawText(0, 4,  "                                                                                  ",tcell.ColorWhite,tcell.ColorBlack)
+	drawText(0, 5,  "                                                                                  ",tcell.ColorWhite,tcell.ColorBlack)
+	drawText(0, 6,  "                                                                                  ",tcell.ColorWhite,tcell.ColorBlack)
+	drawText(0, 7,  "                                                                                  ",tcell.ColorWhite,tcell.ColorBlack)
+	drawText(0, 8,  "                                                                                  ",tcell.ColorWhite,tcell.ColorBlack)
+	drawText(0, 9,  "                                Conway's Life Game                                ",tcell.ColorWhite,tcell.ColorBlack)
+	drawText(0, 10, "                                     ver 0.1                                      ",tcell.ColorWhite,tcell.ColorBlack)
+	drawText(0, 11, "                                                                                  ",tcell.ColorWhite,tcell.ColorBlack)
+	drawText(0, 12, "                                                                                  ",tcell.ColorWhite,tcell.ColorBlack)
+	drawText(0, 13, "                                                                                  ",tcell.ColorWhite,tcell.ColorBlack)
+	drawText(0, 14, "                                                                                  ",tcell.ColorWhite,tcell.ColorBlack)
+	drawText(0, 15, "                                                                                  ",tcell.ColorWhite,tcell.ColorBlack)
+	drawText(0, 16, "                                                                                  ",tcell.ColorWhite,tcell.ColorBlack)
+	drawText(0, 17, "                                                                                  ",tcell.ColorWhite,tcell.ColorBlack)
+	drawText(0, 18, "                                                                                  ",tcell.ColorWhite,tcell.ColorBlack)
+	drawText(0, 19, "                                                                                  ",tcell.ColorWhite,tcell.ColorBlack)
+	drawText(0, 20, "                                                                                  ",tcell.ColorWhite,tcell.ColorBlack)
+	drawText(0, 21, "                                                                                  ",tcell.ColorWhite,tcell.ColorBlack)
+	drawText(0, 22, "                                                  Usage                           ",tcell.ColorWhite,tcell.ColorBlack)
+	drawText(0, 23, "                                                  -----------------               ",tcell.ColorWhite,tcell.ColorBlack)
+	drawText(0, 24, "                                                  Start:  EnterKey                ",tcell.ColorWhite,tcell.ColorBlack)
+	drawText(0, 25, "                                                  Pause:  SpaceKey                ",tcell.ColorWhite,tcell.ColorBlack)
+	drawText(0, 26, "                                                  Finish: Ctrl+C                  ",tcell.ColorWhite,tcell.ColorBlack)
+	drawText(0, 27, "                                                                                  ",tcell.ColorWhite,tcell.ColorBlack)
+	drawText(0, 28, "                                                              Copyright (C) y10e  ",tcell.ColorWhite,tcell.ColorBlack)
+	drawText(0, 29, "                                                                                  ",tcell.ColorWhite,tcell.ColorBlack)
+	//drawText(0, 30, tcell.ColorSpringGreen.Hex() ,tcell.ColorWhite,tcell.ColorBlack)
+	
+
 
 	screen.Show()
 	view = &View{}
@@ -66,7 +96,7 @@ func NewView() {
 		for y := 0; y < world.y; y++ {
 			styleBoarder := tcell.StyleDefault.Foreground(tcell.ColorBlack).Background(tcell.ColorBlack)
 			if world.w[x][y] {
-				styleBoarder = tcell.StyleDefault.Foreground(tcell.ColorBlack).Background(tcell.ColorSpringGreen)
+				styleBoarder = tcell.StyleDefault.Foreground(tcell.ColorBlack).Background(world.color)
 			}
 			screen.SetContent(x*xd, y, '　' , nil , styleBoarder)
 			//screen.SetContent(x + xOffset + 1, y, ' ', nil, styleBoarder)
@@ -89,7 +119,7 @@ func (view *View) Update() {
 		for y := 0; y < world.y; y++ {
 			styleBoarder := tcell.StyleDefault.Foreground(tcell.ColorBlack).Background(tcell.ColorBlack)
 			if world.w[x][y] {
-				styleBoarder = tcell.StyleDefault.Foreground(tcell.ColorBlack).Background(tcell.ColorSpringGreen)
+				styleBoarder = tcell.StyleDefault.Foreground(tcell.ColorBlack).Background(world.color)
 			}
 			screen.SetContent(x*xd, y, '　', nil, styleBoarder)
 		}

@@ -3,10 +3,12 @@ package main
 import (
 	"math/rand"
 	"time"
+
+	"github.com/gdamore/tcell"
 )
 
 //NewWorld :initilize the world
-func NewWorld(x,y int) {
+func NewWorld(x,y int, c string) {
 	//fmt.Println("Call NewWorld")
 
 	w := make([][]bool, x)
@@ -27,7 +29,7 @@ func NewWorld(x,y int) {
 			}
 		}
 	} 
-	world = &World{0,x,y,w,running}
+	world = &World{0,x,y,w,running, tcell.GetColor(c)}
 	NewView()
 
 }

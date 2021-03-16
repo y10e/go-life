@@ -48,6 +48,7 @@ type (
 		x, y int //width, height
 		w [][] bool
 		status Status
+     	color tcell.Color
 	}
 
 	//Event : Keyboard Input Event
@@ -64,6 +65,7 @@ type (
 	General struct {
 		Maxgen int `mapstructure:"maxgen"`
 		Worldsize int `mapstructure:"worldsize"`
+		Color string `mapstructure:"color"`
 	}
 )
 

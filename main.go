@@ -18,6 +18,7 @@ func main() {
 	var maxGen = conf.Gen.Maxgen
 	var x = conf.Gen.Worldsize
 	var y = x
+	var c = conf.Gen.Color
 
 	// Create Start Menu
 	NewBoard()
@@ -33,7 +34,7 @@ func main() {
 	//close(event)
 
 	// Create World
-	NewWorld(x, y)
+	NewWorld(x, y, c)
 	defer world.Stop()
 
 	// key event loop start
